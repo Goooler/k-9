@@ -62,15 +62,19 @@ android {
         buildConfig true
     }
 
-    signingConfigs {
-        release
+    def releaseSigning = signingConfigs.debug
+    if (project.hasProperty('storeFile')) {
+        releaseSigning = signingConfigs.create("release") {
+            keyAlias project.property('keyAlias')
+            keyPassword project.property('keyPassword')
+            storeFile file(project.property('storeFile'))
+            storePassword project.property('storePassword')
+        }
     }
 
     buildTypes {
         release {
-            if (project.hasProperty('storeFile')) {
-                signingConfig signingConfigs.release
-            }
+            signingConfig releaseSigning
 
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -85,6 +89,8 @@ android {
         }
 
         debug {
+            signingConfig releaseSigning
+
             applicationIdSuffix ".debug"
             testCoverageEnabled rootProject.testCoverage
 
@@ -122,17 +128,4 @@ android {
         includeInApk = false
         includeInBundle = false
     }
-}
-
-if (project.hasProperty('keyAlias')) {
-    android.signingConfigs.release.keyAlias = keyAlias
-}
-if (project.hasProperty('keyPassword')) {
-    android.signingConfigs.release.keyPassword = keyPassword
-}
-if (project.hasProperty('storeFile')) {
-    android.signingConfigs.release.storeFile = file(storeFile)
-}
-if (project.hasProperty('storePassword')) {
-    android.signingConfigs.release.storePassword = storePassword
 }
