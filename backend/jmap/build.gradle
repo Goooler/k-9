@@ -3,11 +3,6 @@ apply plugin: 'kotlin'
 apply plugin: 'com.google.devtools.ksp'
 apply plugin: 'com.android.lint'
 
-java {
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-}
-
 dependencies {
     api projects.backend.api
 
