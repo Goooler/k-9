@@ -59,7 +59,7 @@ buildscript {
                 'ktlint': '0.44.0'
         ]
 
-        javaVersion = JavaVersion.VERSION_1_8
+        javaVersion = JavaVersion.VERSION_11
         kotlinJvmVersion = "1.8"
     }
 
@@ -119,8 +119,8 @@ subprojects {
                 testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             }
             compileOptions {
-                sourceCompatibility JavaVersion.VERSION_1_8
-                targetCompatibility JavaVersion.VERSION_1_8
+                sourceCompatibility JavaVersion.VERSION_11
+                targetCompatibility JavaVersion.VERSION_11
             }
             lintOptions {
                 abortOnError false
@@ -145,6 +145,7 @@ subprojects {
 
     tasks.withType(KotlinCompile) {
         kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11
             freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
         }
     }
