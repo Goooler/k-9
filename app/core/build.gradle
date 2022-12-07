@@ -9,7 +9,7 @@ dependencies {
 
     implementation projects.plugins.openpgpApiLib.openpgpApi
 
-    api "io.insert-koin:koin-android:${versions.koin}"
+    api "io.insert-koin:koin-android:3.3.0"
 
     api "androidx.annotation:annotation:${versions.androidxAnnotation}"
 
