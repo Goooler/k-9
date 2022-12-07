@@ -20,6 +20,9 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include ':app:k9mail'
 include ':app:ui:base'
 include ':app:ui:setup'
@@ -51,7 +54,3 @@ include ':backend:jmap'
 include ':backend:demo'
 include ':plugins:openpgp-api-lib:openpgp-api'
 include ':cli:html-cleaner-cli'
-
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
