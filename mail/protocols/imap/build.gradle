@@ -14,7 +14,7 @@ java {
 dependencies {
     api projects.mail.common
 
-    implementation "com.jcraft:jzlib:1.0.7"
+    implementation "com.jcraft:jzlib:${versions.jzlib}"
     implementation "com.beetstra.jutf7:jutf7:1.0.0"
     implementation "commons-io:commons-io:${versions.commonsIo}"
     implementation "com.squareup.okio:okio:${versions.okio}"

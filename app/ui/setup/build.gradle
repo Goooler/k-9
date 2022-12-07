@@ -12,7 +12,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.androidxConstraintLayout}"
     implementation "androidx.core:core-ktx:${versions.androidxCore}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}"
 
     testImplementation projects.mail.testing

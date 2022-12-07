@@ -12,7 +12,7 @@ dependencies {
     api projects.backend.api
 
     api "com.squareup.okhttp3:okhttp:${versions.okhttp}"
-    implementation "rs.ltt.jmap:jmap-client:0.3.1"
+    implementation "rs.ltt.jmap:jmap-client:0.8.13"
     implementation "com.squareup.moshi:moshi:${versions.moshi}"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}"
 
