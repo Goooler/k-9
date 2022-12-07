@@ -8,7 +8,7 @@ java {
 }
 
 dependencies {
-    api project(":app:autodiscovery:api")
+    api projects.app.autodiscovery.api
 
     implementation "org.minidns:minidns-hla:${versions.minidns}"
 

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
-    implementation project(":app:core")
+    implementation projects.app.core
 
     api "androidx.appcompat:appcompat:${versions.androidxAppCompat}"
     api "androidx.activity:activity:${versions.androidxActivity}"

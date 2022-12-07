@@ -8,14 +8,14 @@ java {
 }
 
 dependencies {
-    api project(":backend:api")
-    api project(":mail:protocols:imap")
-    api project(":mail:protocols:smtp")
+    api projects.backend.api
+    api projects.mail.protocols.imap
+    api projects.mail.protocols.smtp
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}"
 
-    testImplementation project(":mail:testing")
-    testImplementation project(":backend:testing")
+    testImplementation projects.mail.testing
+    testImplementation projects.backend.testing
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.mockito:mockito-inline:${versions.mockito}"
     testImplementation "org.mockito.kotlin:mockito-kotlin:${versions.mockitoKotlin}"

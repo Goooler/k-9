@@ -8,7 +8,7 @@ java {
 }
 
 dependencies {
-    api project(":app:autodiscovery:api")
+    api projects.app.autodiscovery.api
 
     compileOnly 'com.github.cketti:xmlpull-extracted-from-android:1.0'
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"

@@ -23,7 +23,7 @@ dependencies {
     // We're only using this for its DefaultHostnameVerifier
     implementation "org.apache.httpcomponents.client5:httpclient5:5.1.3"
 
-    testImplementation project(":mail:testing")
+    testImplementation projects.mail.testing
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "com.google.truth:truth:${versions.truth}"
     testImplementation "org.mockito:mockito-inline:${versions.mockito}"

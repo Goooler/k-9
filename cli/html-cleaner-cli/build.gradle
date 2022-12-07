@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':app:html-cleaner')
+    implementation projects.app.htmlCleaner
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation "com.github.ajalt.clikt:clikt:3.4.0"

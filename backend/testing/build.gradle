@@ -8,7 +8,7 @@ java {
 }
 
 dependencies {
-    implementation project(":backend:api")
+    implementation projects.backend.api
 
     implementation "com.squareup.okio:okio:${versions.okio}"
     implementation "junit:junit:${versions.junit}"

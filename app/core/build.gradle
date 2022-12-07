@@ -3,11 +3,11 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.plugin.parcelize'
 
 dependencies {
-    api project(":mail:common")
-    api project(":backend:api")
-    api project(":app:html-cleaner")
+    api projects.mail.common
+    api projects.backend.api
+    api projects.app.htmlCleaner
 
-    implementation project(':plugins:openpgp-api-lib:openpgp-api')
+    implementation projects.plugins.openpgpApiLib.openpgpApi
 
     api "io.insert-koin:koin-android:${versions.koin}"
 
@@ -24,11 +24,11 @@ dependencies {
     implementation "com.jakewharton.timber:timber:${versions.timber}"
     implementation "org.apache.james:apache-mime4j-core:${versions.mime4j}"
 
-    testImplementation project(':mail:testing')
-    testImplementation project(":backend:imap")
-    testImplementation project(":mail:protocols:smtp")
-    testImplementation project(":app:storage")
-    testImplementation project(":app:testing")
+    testImplementation projects.mail.testing
+    testImplementation projects.backend.imap
+    testImplementation projects.mail.protocols.smtp
+    testImplementation projects.app.storage
+    testImplementation projects.app.testing
     testImplementation "org.jetbrains.kotlin:kotlin-test:${versions.kotlin}"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"

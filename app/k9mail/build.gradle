@@ -6,15 +6,15 @@ if (rootProject.testCoverage) {
 }
 
 dependencies {
-    implementation project(":app:ui:legacy")
-    implementation project(":app:ui:message-list-widget")
-    implementation project(":app:core")
-    implementation project(":app:storage")
-    implementation project(":app:crypto-openpgp")
-    implementation project(":backend:imap")
-    implementation project(":backend:pop3")
-    implementation project(":backend:webdav")
-    debugImplementation project(":backend:demo")
+    implementation projects.app.ui.legacy
+    implementation projects.app.ui.messageListWidget
+    implementation projects.app.core
+    implementation projects.app.storage
+    implementation projects.app.cryptoOpenpgp
+    implementation projects.backend.imap
+    implementation projects.backend.pop3
+    implementation projects.backend.webdav
+    debugImplementation projects.backend.demo
 
     implementation "androidx.appcompat:appcompat:${versions.androidxAppCompat}"
     implementation "androidx.core:core-ktx:${versions.androidxCore}"
@@ -30,7 +30,7 @@ dependencies {
     }
 
     // Required for DependencyInjectionTest to be able to resolve OpenPgpApiManager
-    testImplementation project(':plugins:openpgp-api-lib:openpgp-api')
+    testImplementation projects.plugins.openpgpApiLib.openpgpApi
 
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"
     testImplementation "junit:junit:${versions.junit}"

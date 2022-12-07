@@ -8,5 +8,5 @@ java {
 }
 
 dependencies {
-    api project(":mail:common")
+    api projects.mail.common
 }

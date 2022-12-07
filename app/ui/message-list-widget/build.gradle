@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
-    implementation project(":app:ui:legacy")
-    implementation project(":app:core")
+    implementation projects.app.ui.legacy
+    implementation projects.app.core
 
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 }

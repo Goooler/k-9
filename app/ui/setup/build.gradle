@@ -2,10 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 dependencies {
-    api project(":app:ui:base")
-    implementation project(":app:core")
-    implementation project(":app:autodiscovery:api")
-    implementation project(":mail:common")
+    api projects.app.ui.base
+    implementation projects.app.core
+    implementation projects.app.autodiscovery.api
+    implementation projects.mail.common
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidxLifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.androidxLifecycle}"
@@ -15,8 +15,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}"
 
-    testImplementation project(':mail:testing')
-    testImplementation project(':app:testing')
+    testImplementation projects.mail.testing
+    testImplementation projects.app.testing
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "com.google.truth:truth:${versions.truth}"

@@ -8,10 +8,10 @@ java {
 }
 
 dependencies {
-    api project(":backend:api")
-    api project(":mail:protocols:webdav")
+    api projects.backend.api
+    api projects.mail.protocols.webdav
 
-    testImplementation project(":mail:testing")
+    testImplementation projects.mail.testing
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.mockito:mockito-core:${versions.mockito}"
 }

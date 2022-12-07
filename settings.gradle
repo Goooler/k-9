@@ -29,3 +29,6 @@ include ':backend:jmap'
 include ':backend:demo'
 include ':plugins:openpgp-api-lib:openpgp-api'
 include ':cli:html-cleaner-cli'
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+

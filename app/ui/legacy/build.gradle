@@ -3,18 +3,18 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.plugin.parcelize'
 
 dependencies {
-    api project(":app:ui:base")
-    debugImplementation project(":app:ui:setup")
-    implementation project(":app:core")
-    implementation project(":app:autodiscovery:api")
-    implementation project(":app:autodiscovery:providersxml")
-    implementation project(":mail:common")
+    api projects.app.ui.base
+    debugImplementation projects.app.ui.setup
+    implementation projects.app.core
+    implementation projects.app.autodiscovery.api
+    implementation projects.app.autodiscovery.providersxml
+    implementation projects.mail.common
 
     //TODO: Remove AccountSetupIncoming's dependency on these
-    compileOnly project(":mail:protocols:imap")
-    compileOnly project(":mail:protocols:webdav")
+    compileOnly projects.mail.protocols.imap
+    compileOnly projects.mail.protocols.webdav
 
-    implementation project(':plugins:openpgp-api-lib:openpgp-api')
+    implementation projects.plugins.openpgpApiLib.openpgpApi
 
     implementation "androidx.appcompat:appcompat:${versions.androidxAppCompat}"
     implementation "androidx.preference:preference:${versions.androidxPreference}"
@@ -22,8 +22,8 @@ dependencies {
     implementation "com.takisoft.preferencex:preferencex-datetimepicker:${versions.preferencesFix}"
     implementation "com.takisoft.preferencex:preferencex-colorpicker:${versions.preferencesFix}"
     implementation "androidx.recyclerview:recyclerview:${versions.androidxRecyclerView}"
-    implementation project(':ui-utils:LinearLayoutManager')
-    implementation project(':ui-utils:ItemTouchHelper')
+    implementation projects.uiUtils.LinearLayoutManager
+    implementation projects.uiUtils.ItemTouchHelper
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidxLifecycle}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidxLifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.androidxLifecycle}"
@@ -53,9 +53,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:${versions.glide}"
     annotationProcessor "com.github.bumptech.glide:compiler:${versions.glide}"
 
-    testImplementation project(':mail:testing')
-    testImplementation project(':app:storage')
-    testImplementation project(':app:testing')
+    testImplementation projects.mail.testing
+    testImplementation projects.app.storage
+    testImplementation projects.app.testing
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"
     testImplementation "androidx.test:core:${versions.androidxTestCore}"
     testImplementation "junit:junit:${versions.junit}"
