@@ -60,7 +60,6 @@ buildscript {
         ]
 
         javaVersion = JavaVersion.VERSION_11
-        kotlinJvmVersion = "1.8"
     }
 
     repositories {
@@ -119,8 +118,8 @@ subprojects {
                 testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             }
             compileOptions {
-                sourceCompatibility JavaVersion.VERSION_11
-                targetCompatibility JavaVersion.VERSION_11
+                sourceCompatibility javaVersion
+                targetCompatibility javaVersion
             }
             lintOptions {
                 abortOnError false
@@ -145,7 +144,7 @@ subprojects {
 
     tasks.withType(KotlinCompile) {
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_11
+            jvmTarget = javaVersion
         }
     }
 
