@@ -18,10 +18,10 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders["appAuthRedirectScheme"] = "FIXME: override this in your app project"
+            manifestPlaceholders["appAuthRedirectScheme"] = "io.goooler.demoapp.app"
         }
         release {
-            manifestPlaceholders["appAuthRedirectScheme"] = "FIXME: override this in your app project"
+            manifestPlaceholders["appAuthRedirectScheme"] = "io.goooler.demoapp.app"
         }
     }
 }

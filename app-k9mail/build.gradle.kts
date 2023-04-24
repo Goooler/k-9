@@ -31,7 +31,7 @@ android {
     namespace = "com.fsck.k9"
 
     defaultConfig {
-        applicationId = "com.fsck.k9"
+        applicationId = "io.goooler.demoapp.app"
         testApplicationId = "com.fsck.k9.tests"
 
         versionCode = 37017
@@ -125,11 +125,6 @@ android {
             )
             buildConfigField(
                 "String",
-                "OAUTH_YAHOO_CLIENT_ID",
-                "\"dj0yJmk9aHNUb3d2MW5TQnpRJmQ9WVdrOWVYbHpaRWM0YkdnbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWIz\"",
-            )
-            buildConfigField(
-                "String",
                 "OAUTH_AOL_CLIENT_ID",
                 "\"dj0yJmk9dUNqYXZhYWxOYkdRJmQ9WVdrOU1YQnZVRFZoY1ZrbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWIw\"",
             )
@@ -140,11 +135,10 @@ android {
                 "\"msauth://com.fsck.k9/Dx8yUsuhyU3dYYba1aA16Wxu5eM%3D\"",
             )
 
-            manifestPlaceholders["appAuthRedirectScheme"] = "com.fsck.k9"
+            manifestPlaceholders["appAuthRedirectScheme"] = "io.goooler.demoapp.app"
         }
 
         debug {
-            applicationIdSuffix = ".debug"
             enableUnitTestCoverage = testCoverageEnabled
             enableAndroidTestCoverage = testCoverageEnabled
 
@@ -154,11 +148,6 @@ android {
                 "String",
                 "OAUTH_GMAIL_CLIENT_ID",
                 "\"262622259280-5qb3vtj68d5dtudmaif4g9vd3cpar8r3.apps.googleusercontent.com\"",
-            )
-            buildConfigField(
-                "String",
-                "OAUTH_YAHOO_CLIENT_ID",
-                "\"dj0yJmk9ejRCRU1ybmZjQlVBJmQ9WVdrOVVrZEViak4xYmxZbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTZj\"",
             )
             buildConfigField(
                 "String",
@@ -172,7 +161,15 @@ android {
                 "\"msauth://com.fsck.k9.debug/VZF2DYuLYAu4TurFd6usQB2JPts%3D\"",
             )
 
-            manifestPlaceholders["appAuthRedirectScheme"] = "com.fsck.k9.debug"
+            manifestPlaceholders["appAuthRedirectScheme"] = "io.goooler.demoapp.app"
+        }
+
+        all {
+            buildConfigField(
+                "String",
+                "OAUTH_YAHOO_CLIENT_ID",
+                "\"dj0yJmk9ZmhPYU16b3RqNkZ1JmQ9WVdrOVV6Y3lOMEYzUlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWNj\"",
+            )
         }
     }
 
