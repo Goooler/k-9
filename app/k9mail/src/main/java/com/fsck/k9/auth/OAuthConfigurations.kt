@@ -40,8 +40,6 @@ fun createOAuthConfigurationProvider(): OAuthConfigurationProvider {
                     "https://outlook.office.com/SMTP.Send",
                     "offline_access",
                     "profile",
-                    "openid",
-                    "email",
                 ),
                 authorizationEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
                 tokenEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/token",
