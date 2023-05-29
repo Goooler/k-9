@@ -39,7 +39,6 @@ fun createOAuthConfigurationProvider(): OAuthConfigurationProvider {
                     "https://outlook.office.com/IMAP.AccessAsUser.All",
                     "https://outlook.office.com/SMTP.Send",
                     "offline_access",
-                    "profile",
                     "openid",
                 ),
                 authorizationEndpoint = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
