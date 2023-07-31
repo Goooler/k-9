@@ -247,7 +247,7 @@ class NotificationDataStoreTest : RobolectricTest() {
     private fun createNotificationContent(messageReference: MessageReference): NotificationContent {
         return NotificationContent(
             messageReference = messageReference,
-            sender = "irrelevant",
+            senderName = "irrelevant",
             subject = "irrelevant",
             preview = "irrelevant",
             summary = "irrelevant",

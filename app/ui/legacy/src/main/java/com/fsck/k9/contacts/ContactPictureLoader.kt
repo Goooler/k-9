@@ -6,7 +6,9 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.WorkerThread
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.FutureTarget
 import com.fsck.k9.mail.Address
 import com.fsck.k9.ui.R
@@ -57,15 +59,15 @@ class ContactPictureLoader(
     }
 
     @WorkerThread
-    fun getContactPicture(recipient: Recipient): Bitmap? {
-        val contactPictureUri = recipient.photoThumbnailUri
-        val address = recipient.address
-
-        return if (contactPictureUri != null) {
-            getContactPicture(contactPictureUri)
-        } else {
-            getFallbackPicture(address)
-        }
+    fun getContactPicture(address: Address, transformation: Transformation<Bitmap>? = CircleCrop()): Bitmap? {
+        return Glide.with(context)
+            .asBitmap()
+            .load(createContactImage(address, contactLetterOnly = false))
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .dontAnimate()
+            .apply { transformation?.let(::transform) }
+            .submit(pictureSizeInPx, pictureSizeInPx)
+            .getOrNull()
     }
 
     private fun getContactPicture(contactPictureUri: Uri): Bitmap? {

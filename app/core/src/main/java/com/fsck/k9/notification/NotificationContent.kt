@@ -4,7 +4,8 @@ import com.fsck.k9.controller.MessageReference
 
 internal data class NotificationContent(
     val messageReference: MessageReference,
-    val sender: String,
+    val senderName: String,
+    val senderAddress: String,
     val subject: String,
     val preview: CharSequence,
     val summary: CharSequence,

@@ -39,7 +39,7 @@ class NotificationContentCreatorTest : RobolectricTest() {
         val content = contentCreator.createFromMessage(account, message)
 
         assertThat(content.messageReference).isEqualTo(messageReference)
-        assertThat(content.sender).isEqualTo(SENDER_NAME)
+        assertThat(content.senderName).isEqualTo(SENDER_NAME)
         assertThat(content.subject).isEqualTo(SUBJECT)
         assertThat(content.preview.toString()).isEqualTo("$SUBJECT\n$PREVIEW")
         assertThat(content.summary.toString()).isEqualTo("$SENDER_NAME $SUBJECT")
@@ -105,7 +105,7 @@ class NotificationContentCreatorTest : RobolectricTest() {
 
         val content = contentCreator.createFromMessage(account, message)
 
-        assertThat(content.sender).isEqualTo("No sender")
+        assertThat(content.senderName).isEqualTo("No sender")
         assertThat(content.summary.toString()).isEqualTo(SUBJECT)
     }
 
@@ -117,7 +117,7 @@ class NotificationContentCreatorTest : RobolectricTest() {
 
         val content = contentCreator.createFromMessage(account, message)
 
-        assertThat(content.sender).isEqualTo("To:Bob")
+        assertThat(content.senderName).isEqualTo("To:Bob")
         assertThat(content.summary.toString()).isEqualTo("To:Bob $SUBJECT")
     }
 
@@ -132,7 +132,7 @@ class NotificationContentCreatorTest : RobolectricTest() {
 
         val content = contentCreator.createFromMessage(account, message)
 
-        assertThat(content.sender).isEqualTo("No sender")
+        assertThat(content.senderName).isEqualTo("No sender")
         assertThat(content.subject).isEqualTo("(No subject)")
         assertThat(content.preview.toString()).isEqualTo("(No subject)")
         assertThat(content.summary.toString()).isEqualTo("(No subject)")

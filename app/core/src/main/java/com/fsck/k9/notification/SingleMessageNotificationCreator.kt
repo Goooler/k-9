@@ -2,7 +2,10 @@ package com.fsck.k9.notification
 
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.WearableExtender
+import com.fsck.k9.mail.Address
 import com.fsck.k9.notification.NotificationChannelManager.ChannelType
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import androidx.core.app.NotificationCompat.Builder as NotificationBuilder
 
@@ -12,6 +15,8 @@ internal class SingleMessageNotificationCreator(
     private val resourceProvider: NotificationResourceProvider,
     private val lockScreenNotificationCreator: LockScreenNotificationCreator,
 ) {
+    private val scope = MainScope()
+
     fun createSingleNotification(
         baseNotificationData: BaseNotificationData,
         singleNotificationData: SingleNotificationData,
@@ -29,9 +34,10 @@ internal class SingleMessageNotificationCreator(
             .setColor(baseNotificationData.color)
             .setWhen(singleNotificationData.timestamp)
             .setTicker(content.summary)
-            .setContentTitle(content.sender)
+            .setContentTitle(content.senderName)
             .setContentText(content.subject)
             .setSubText(baseNotificationData.accountName)
+            .setAvatar(singleNotificationData)
             .setBigText(content.preview)
             .setContentIntent(actionCreator.createViewMessagePendingIntent(content.messageReference))
             .setDeleteIntent(actionCreator.createDismissMessagePendingIntent(content.messageReference))
@@ -168,6 +174,13 @@ internal class SingleMessageNotificationCreator(
     ) = apply {
         if (addLockScreenNotification) {
             lockScreenNotificationCreator.configureLockScreenNotification(this, notificationData)
+        }
+    }
+
+    private fun NotificationCompat.Builder.setAvatar(data: SingleNotificationData) = apply {
+        scope.launch {
+            val address = Address(data.content.senderAddress, data.content.senderName)
+            resourceProvider.avatar(address)?.let(::setLargeIcon)
         }
     }
 }

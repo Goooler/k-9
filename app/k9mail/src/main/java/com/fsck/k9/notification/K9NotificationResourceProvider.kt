@@ -1,7 +1,12 @@
 package com.fsck.k9.notification
 
 import android.content.Context
+import android.graphics.Bitmap
+import com.fsck.k9.activity.misc.ContactPicture
+import com.fsck.k9.mail.Address
 import com.fsck.k9.ui.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class K9NotificationResourceProvider(private val context: Context) : NotificationResourceProvider {
     override val iconWarning: Int = R.drawable.notification_icon_warning
@@ -29,6 +34,10 @@ class K9NotificationResourceProvider(private val context: Context) : Notificatio
         get() = context.getString(R.string.notification_channel_miscellaneous_title)
     override val miscellaneousChannelDescription: String
         get() = context.getString(R.string.notification_channel_miscellaneous_description)
+
+    override suspend fun avatar(address: Address): Bitmap? = withContext(Dispatchers.IO) {
+        ContactPicture.getContactPictureLoader().getContactPicture(address)
+    }
 
     override fun authenticationErrorTitle(): String =
         context.getString(R.string.notification_authentication_error_title)

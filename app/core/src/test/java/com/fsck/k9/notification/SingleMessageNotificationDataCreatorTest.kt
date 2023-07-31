@@ -265,7 +265,7 @@ class SingleMessageNotificationDataCreatorTest {
 
     private fun createNotificationContent() = NotificationContent(
         messageReference = MessageReference("irrelevant", 1, "irrelevant"),
-        sender = "irrelevant",
+        senderName = "irrelevant",
         subject = "irrelevant",
         preview = "irrelevant",
         summary = "irrelevant",

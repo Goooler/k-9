@@ -192,7 +192,7 @@ class BaseNotificationDataCreatorTest {
                 timestamp = 0L,
                 content = NotificationContent(
                     messageReference = mock(),
-                    sender = sender,
+                    senderName = sender,
                     preview = "irrelevant",
                     summary = "irrelevant",
                     subject = "irrelevant",

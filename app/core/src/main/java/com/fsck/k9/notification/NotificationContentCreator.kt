@@ -14,14 +14,15 @@ internal class NotificationContentCreator(
     private val contactRepository: ContactRepository,
 ) {
     fun createFromMessage(account: Account, message: LocalMessage): NotificationContent {
-        val sender = getMessageSender(account, message)
+        val (senderName, senderAddress) = getMessageSender(account, message)
 
         return NotificationContent(
             messageReference = message.makeMessageReference(),
-            sender = getMessageSenderForDisplay(sender),
+            senderName = getMessageSenderForDisplay(senderName),
+            senderAddress = senderAddress,
             subject = getMessageSubject(message),
             preview = getMessagePreview(message),
-            summary = buildMessageSummary(sender, getMessageSubject(message)),
+            summary = buildMessageSummary(senderName, getMessageSubject(message)),
         )
     }
 
@@ -68,7 +69,7 @@ internal class NotificationContentCreator(
         return subject.ifEmpty { resourceProvider.noSubject() }
     }
 
-    private fun getMessageSender(account: Account, message: Message): String? {
+    private fun getMessageSender(account: Account, message: Message): Pair<String?, String> {
         val localContactRepository = if (K9.isShowContactName) contactRepository else null
         var isSelf = false
 
@@ -76,7 +77,9 @@ internal class NotificationContentCreator(
         if (!fromAddresses.isNullOrEmpty()) {
             isSelf = account.isAnIdentity(fromAddresses)
             if (!isSelf) {
-                return MessageHelper.toFriendly(fromAddresses.first(), localContactRepository).toString()
+                val fromAddress = fromAddresses.first()
+                val fromName = MessageHelper.toFriendly(fromAddress, localContactRepository).toString()
+                return fromName to fromAddress.address
             }
         }
 
@@ -84,15 +87,17 @@ internal class NotificationContentCreator(
             // show To: if the message was sent from me
             val recipients = message.getRecipients(Message.RecipientType.TO)
             if (!recipients.isNullOrEmpty()) {
+                val recipientAddress = recipients.first()
                 val recipientDisplayName = MessageHelper.toFriendly(
-                    address = recipients.first(),
+                    address = recipientAddress,
                     contactRepository = localContactRepository,
                 ).toString()
-                return resourceProvider.recipientDisplayName(recipientDisplayName)
+                val recipientName = resourceProvider.recipientDisplayName(recipientDisplayName)
+                return recipientName to recipientAddress.address
             }
         }
 
-        return null
+        return null to ""
     }
 
     private fun getMessageSenderForDisplay(sender: String?): String {

@@ -64,7 +64,7 @@ class NewMailNotificationManagerTest {
         assertThat(result.singleNotificationData.first().content).isEqualTo(
             NotificationContent(
                 messageReference = createMessageReference("msg-1"),
-                sender = "sender",
+                senderName = "sender",
                 subject = "subject",
                 preview = "preview",
                 summary = "summary",
@@ -101,7 +101,7 @@ class NewMailNotificationManagerTest {
         assertThat(result.singleNotificationData.first().content).isEqualTo(
             NotificationContent(
                 messageReference = createMessageReference("msg-2"),
-                sender = "Zoe",
+                senderName = "Zoe",
                 subject = "Meeting",
                 preview = "We need to talk",
                 summary = "Zoe Meeting",
@@ -268,7 +268,7 @@ class NewMailNotificationManagerTest {
             assertThat(singleNotificationData.content).isEqualTo(
                 NotificationContent(
                     messageReference = createMessageReference("msg-restore"),
-                    sender = "Alice",
+                    senderName = "Alice",
                     subject = "Another one",
                     preview = "Are you tired of me yet?",
                     summary = "Alice Another one",
@@ -310,7 +310,7 @@ class NewMailNotificationManagerTest {
             assertThat(singleNotificationData.content).isEqualTo(
                 NotificationContent(
                     messageReference = createMessageReference("uid-1"),
-                    sender = "Sender",
+                    senderName = "Sender",
                     subject = "Subject",
                     preview = "Preview",
                     summary = "Summary",
@@ -323,7 +323,7 @@ class NewMailNotificationManagerTest {
             assertThat(summaryNotificationData.singleNotificationData.content).isEqualTo(
                 NotificationContent(
                     messageReference = createMessageReference("uid-1"),
-                    sender = "Sender",
+                    senderName = "Sender",
                     subject = "Subject",
                     preview = "Preview",
                     summary = "Summary",
@@ -352,7 +352,7 @@ class NewMailNotificationManagerTest {
             assertThat(data.baseNotificationData.newMessagesCount)
                 .isEqualTo(MAX_NUMBER_OF_NEW_MESSAGE_NOTIFICATIONS + 1)
             assertThat(data.singleNotificationData).hasSize(MAX_NUMBER_OF_NEW_MESSAGE_NOTIFICATIONS)
-            assertThat(data.singleNotificationData.map { it.content.sender }).doesNotContain("inactive")
+            assertThat(data.singleNotificationData.map { it.content.senderName }).doesNotContain("inactive")
 
             assertThat(data.summaryNotificationData).isNotNull().isInstanceOf<SummaryInboxNotificationData>()
             val summaryNotificationData = data.summaryNotificationData as SummaryInboxNotificationData
