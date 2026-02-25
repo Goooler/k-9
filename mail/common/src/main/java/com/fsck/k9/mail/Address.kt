@@ -46,10 +46,11 @@ class Address : Serializable {
         }
     }
 
-    val hostname: String?
+    val hostname: String
         get() {
             val hostIdx = address.lastIndexOf("@")
-            return if (hostIdx == -1) null else address.substring(hostIdx + 1)
+            require(hostIdx != -1) { "Address does not contain '@' character" }
+            return address.substring(hostIdx + 1)
         }
 
     override fun equals(other: Any?): Boolean {
@@ -199,8 +200,7 @@ class Address : Serializable {
          * @return Packed addresses.
          */
         @JvmStatic
-        fun pack(addresses: Array<Address>?): String? {
-            addresses ?: return null
+        fun pack(addresses: Array<Address>): String {
             val sb = StringBuilder()
             for (i in addresses.indices) {
                 val address = addresses[i]
@@ -219,8 +219,7 @@ class Address : Serializable {
         }
 
         @JvmStatic
-        fun toString(addresses: Array<Address>?): String? {
-            addresses ?: return null
+        fun toString(addresses: Array<Address>): String {
             return addresses.joinToString(", ")
         }
 
@@ -236,7 +235,7 @@ class Address : Serializable {
             return if (ATOM.matcher(text).matches()) {
                 text
             } else {
-                quoteString(text)!!
+                quoteString(text)
             }
         }
 
@@ -257,8 +256,7 @@ class Address : Serializable {
          */
         @JvmStatic
         @VisibleForTesting
-        internal fun quoteString(s: String?): String? {
-            s ?: return null
+        internal fun quoteString(s: String): String {
             return if (!s.matches(Regex("^\".*\"$"))) {
                 "\"" + s + "\""
             } else {
