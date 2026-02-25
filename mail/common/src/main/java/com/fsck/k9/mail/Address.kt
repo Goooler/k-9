@@ -1,7 +1,6 @@
 package com.fsck.k9.mail
 
 import com.fsck.k9.mail.helper.Rfc822Tokenizer
-import com.fsck.k9.mail.helper.TextUtils
 import java.io.Serializable
 import java.util.regex.Pattern
 import net.thunderbird.core.logging.legacy.Log
@@ -30,7 +29,7 @@ class Address : Serializable {
                 val token = tokens[0]
                 this.address = requireNotNull(token.address) { "token.getAddress()" }
                 val name = token.name
-                this.personal = if (!TextUtils.isEmpty(name)) {
+                this.personal = if (!name.isNullOrEmpty()) {
                     name
                 } else {
                     personal?.trim()
@@ -72,15 +71,15 @@ class Address : Serializable {
     }
 
     override fun toString(): String {
-        return if (!TextUtils.isEmpty(personal)) {
-            quoteAtoms(personal!!) + " <" + address + ">"
+        return if (!personal.isNullOrEmpty()) {
+            quoteAtoms(personal) + " <" + address + ">"
         } else {
             address
         }
     }
 
     fun toEncodedString(): String {
-        return if (!TextUtils.isEmpty(personal)) {
+        return if (!personal.isNullOrEmpty()) {
             EncoderUtil.encodeAddressDisplayName(personal) + " <" + address + ">"
         } else {
             address
@@ -122,8 +121,8 @@ class Address : Serializable {
                 val tokens = Rfc822Tokenizer.tokenize(addressList)
                 for (token in tokens) {
                     val address = token.address
-                    if (!TextUtils.isEmpty(address)) {
-                        val name = if (TextUtils.isEmpty(token.name)) null else token.name
+                    if (!address.isNullOrEmpty()) {
+                        val name = if (token.name.isNullOrEmpty()) null else token.name
                         addresses.add(Address(token.address!!, name, false))
                     }
                 }
