@@ -10,17 +10,65 @@ import org.apache.james.mime4j.codec.EncoderUtil
 import org.apache.james.mime4j.field.address.DefaultAddressParser
 import org.jetbrains.annotations.VisibleForTesting
 
-class Address @JvmOverloads constructor(
-    val address: String,
-    val personal: String? = null,
-) : Serializable {
-    constructor(address: Address) : this(address.address, address.personal)
+class Address : Serializable {
+    val address: String
+    val personal: String?
+
+    constructor(address: Address) {
+        this.address = address.address
+        this.personal = address.personal
+    }
+
+    @JvmOverloads
+    constructor(address: String, personal: String? = null) : this(address, personal, true)
+
+    private constructor(address: String, personal: String?, parse: Boolean) {
+        if (parse) {
+            val tokens = Rfc822Tokenizer.tokenize(address)
+            if (tokens.isNotEmpty()) {
+                val token = tokens[0]
+                this.address = requireNotNull(token.address) { "token.getAddress()" }
+                val name = token.name
+                this.personal = if (!name.isNullOrEmpty()) {
+                    name
+                } else {
+                    personal?.trim()
+                }
+            } else {
+                Log.e("Invalid address: %s", address)
+                this.address = address
+                this.personal = personal
+            }
+        } else {
+            this.address = address
+            this.personal = personal
+        }
+    }
 
     val hostname: String?
         get() {
             val hostIdx = address.lastIndexOf("@")
             return if (hostIdx == -1) null else address.substring(hostIdx + 1)
         }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+
+        val otherAddress = other as Address
+
+        if (address != otherAddress.address) return false
+
+        return personal == otherAddress.personal
+    }
+
+    override fun hashCode(): Int {
+        var hash = address.hashCode()
+        if (personal != null) {
+            hash += 3 * personal.hashCode()
+        }
+        return hash
+    }
 
     override fun toString(): String {
         return if (!personal.isNullOrEmpty()) {
@@ -58,26 +106,6 @@ class Address @JvmOverloads constructor(
 
     companion object {
         private val ATOM = Pattern.compile("^(?:[a-zA-Z0-9!#$%&'*+\\-/=?^_`{|}~]|\\s)+$")
-
-        private operator fun invoke(address: String, personal: String?, parse: Boolean): Address {
-            if (!parse) return Address(address, personal)
-
-            val tokens = Rfc822Tokenizer.tokenize(address)
-            if (tokens.isNotEmpty()) {
-                val token = tokens[0]
-                val parsedAddress = requireNotNull(token.address) { "token.getAddress()" }
-                val name = token.name
-                val parsedPersonal = if (!name.isNullOrEmpty()) {
-                    name
-                } else {
-                    personal?.trim()
-                }
-                return Address(parsedAddress, parsedPersonal)
-            } else {
-                Log.e("Invalid address: %s", address)
-                return Address(address, personal)
-            }
-        }
 
         /**
          * Parse a comma separated list of email addresses in human readable format and return an
