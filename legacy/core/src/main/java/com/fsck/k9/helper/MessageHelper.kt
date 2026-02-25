@@ -153,8 +153,8 @@ class MessageHelper(
                     }
                 }
             }
-            return if (!TextUtils.isEmpty(address.personal) && !isSpoofAddress(address.personal)) {
-                address.personal
+            return if (!TextUtils.isEmpty(address.personal) && !isSpoofAddress(checkNotNull(address.personal))) {
+                address.personal!!
             } else {
                 address.address
             }

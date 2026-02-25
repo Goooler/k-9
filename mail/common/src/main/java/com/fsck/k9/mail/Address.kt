@@ -10,6 +10,7 @@ import org.apache.james.mime4j.codec.EncoderUtil
 import org.apache.james.mime4j.field.address.DefaultAddressParser
 import org.jetbrains.annotations.VisibleForTesting
 
+@Suppress("MemberNameEqualsClassName")
 class Address : Serializable {
     val address: String
     val personal: String?
@@ -53,13 +54,8 @@ class Address : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other == null || javaClass != other.javaClass) return false
-
-        val otherAddress = other as Address
-
-        if (address != otherAddress.address) return false
-
-        return personal == otherAddress.personal
+        if (other !is Address) return false
+        return address == other.address && personal == other.personal
     }
 
     override fun hashCode(): Int {
@@ -98,13 +94,15 @@ class Address : Serializable {
      */
     fun needsUnicode(): Boolean {
         var i = address.length - 1
-        while (i >= 0 && address[i].code < 128) {
+        while (i >= 0 && address[i].code < ASCII_MAX) {
             i--
         }
         return i >= 0
     }
 
     companion object {
+        private const val serialVersionUID = 1L
+        private const val ASCII_MAX = 128
         private val ATOM = Pattern.compile("^(?:[a-zA-Z0-9!#$%&'*+\\-/=?^_`{|}~]|\\s)+$")
 
         /**
@@ -116,15 +114,16 @@ class Address : Serializable {
          */
         @JvmStatic
         fun parseUnencoded(addressList: String?): Array<Address> {
-            val addresses = mutableListOf<Address>()
-            if (!addressList.isNullOrEmpty()) {
-                val tokens = Rfc822Tokenizer.tokenize(addressList)
-                for (token in tokens) {
-                    val address = token.address
-                    if (!address.isNullOrEmpty()) {
-                        val name = if (token.name.isNullOrEmpty()) null else token.name
-                        addresses.add(Address(token.address!!, name, false))
-                    }
+            if (addressList.isNullOrEmpty()) return emptyArray()
+
+            val tokens = Rfc822Tokenizer.tokenize(addressList)
+            val addresses = tokens.mapNotNull { token ->
+                val address = token.address
+                if (!address.isNullOrEmpty()) {
+                    val name = if (token.name.isNullOrEmpty()) null else token.name
+                    Address(address, name, false)
+                } else {
+                    null
                 }
             }
             return addresses.toTypedArray()

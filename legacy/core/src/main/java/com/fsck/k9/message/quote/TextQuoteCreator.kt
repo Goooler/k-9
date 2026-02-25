@@ -27,7 +27,7 @@ class TextQuoteCreator(
 
     private fun prefixQuoteText(body: String, originalMessage: Message, prefix: String): String {
         val sentDate = quoteDateFormatter.format(originalMessage.sentDate)
-        val sender = Address.toString(originalMessage.from)
+        val sender = checkNotNull(Address.toString(originalMessage.from))
 
         return buildString {
             val replyHeader = if (sentDate.isEmpty()) {
