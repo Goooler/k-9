@@ -164,9 +164,7 @@ class Address : Serializable {
          */
         @JvmStatic
         fun unpack(addressList: String?): Array<Address> {
-            if (addressList == null) {
-                return arrayOf()
-            }
+            addressList ?: return emptyArray()
             val addresses = mutableListOf<Address>()
             val length = addressList.length
             var pairStartIndex = 0
@@ -203,9 +201,7 @@ class Address : Serializable {
          */
         @JvmStatic
         fun pack(addresses: Array<Address>?): String? {
-            if (addresses == null) {
-                return null
-            }
+            addresses ?: return null
             val sb = StringBuilder()
             for (i in addresses.indices) {
                 val address = addresses[i]
@@ -225,9 +221,7 @@ class Address : Serializable {
 
         @JvmStatic
         fun toString(addresses: Array<Address>?): String? {
-            if (addresses == null) {
-                return null
-            }
+            addresses ?: return null
             return addresses.joinToString(", ")
         }
 
@@ -265,9 +259,7 @@ class Address : Serializable {
         @JvmStatic
         @VisibleForTesting
         internal fun quoteString(s: String?): String? {
-            if (s == null) {
-                return null
-            }
+            s ?: return null
             return if (!s.matches(Regex("^\".*\"$"))) {
                 "\"" + s + "\""
             } else {
