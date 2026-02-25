@@ -153,8 +153,9 @@ class MessageHelper(
                     }
                 }
             }
-            return if (!TextUtils.isEmpty(address.personal) && !isSpoofAddress(checkNotNull(address.personal))) {
-                address.personal!!
+            val personal = address.personal
+            return if (!personal.isNullOrEmpty() && !isSpoofAddress(personal)) {
+                personal
             } else {
                 address.address
             }
