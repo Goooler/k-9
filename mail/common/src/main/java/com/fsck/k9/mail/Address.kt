@@ -46,11 +46,10 @@ class Address : Serializable {
         }
     }
 
-    val hostname: String
+    val hostname: String?
         get() {
             val hostIdx = address.lastIndexOf("@")
-            require(hostIdx != -1) { "Address does not contain '@' character" }
-            return address.substring(hostIdx + 1)
+            return if (hostIdx == -1) null else address.substring(hostIdx + 1)
         }
 
     override fun equals(other: Any?): Boolean {
