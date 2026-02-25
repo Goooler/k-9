@@ -264,7 +264,7 @@ class Address : Serializable {
          */
         @JvmStatic
         @VisibleForTesting
-        fun quoteString(s: String?): String? {
+        internal fun quoteString(s: String?): String? {
             if (s == null) {
                 return null
             }
